@@ -1,0 +1,38 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Set up Python 3.10 (or whichever version you're using)
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    # Install dependencies via make install
+    - name: Install dependencies
+      run: make install  # Assuming 'install' target is defined in your Makefile to install dependencies
+
+    # Run the application via make run, followed by sleep
+    - name: Run the application
+      run: |
+        make run &  # Start the app in the background
+        sleep 10    # Sleep to ensure the server has time to start
+
+    # Optionally, add a step to confirm the server is running
+    - name: Check server status
+      run: |
+        curl http://localhost:8000 || echo "Server not reachable"
