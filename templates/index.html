@@ -192,8 +192,8 @@
             const t = graph._fullLayout.margin.t;
 
             graph.addEventListener("mousemove", function (event) {
-              x = xaxis.p2c(event.x) - 11.792;
-              y = yaxis.p2c(event.y - t) + 12.23;
+              x = xaxis.p2c(event.x) - 11;
+              y = yaxis.p2c(event.y - t) + 12.52;
             });
           }
           $("#plotly-graph").on("plotly_click", function (event, data) {
